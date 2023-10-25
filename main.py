@@ -1,6 +1,5 @@
 from tkinter import*
 from tkinter import ttk
-from train import Train
 from PIL import Image,ImageTk
 import PIL
 from student import Student
@@ -111,6 +110,10 @@ class Face_Recognition_System:
     def open_img(self):
         os.startfile("data_img")
 # ==================Functions Buttons=====================
+    # def login_pannels(self):
+    #     self.new_window=Toplevel(self.root)
+    #     self.app=Login(self.new_window)
+    #     self.new_window.state('zoomed')
     def student_pannels(self):
         self.new_window=Toplevel(self.root)
         self.app=Student(self.new_window)

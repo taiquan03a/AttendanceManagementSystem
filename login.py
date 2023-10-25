@@ -10,14 +10,7 @@ from tkinter import messagebox
 from register import Register
 import mysql.connector
 # --------------------------
-from train import Train
-from student import Student
-from train import Train
-from face_recognition import Face_Recognition
-from attendance import Attendance
-from developer import Developer
-from helpsupport import Helpsupport
-import os
+from main import Face_Recognition_System
 
 
 class Login:
@@ -59,9 +52,6 @@ class Login:
         btn_forgetpwd = Button(login_frame, cursor="hand2", command=self.forget_pwd, text="Quên mật khẩu?", font=("times new roman", 14), bg="white", bd=0, fg="navyblue").place(x=500, y=330)
 
         btn_login = Button(login_frame, text="Đăng Nhập", command=self.login, font=("times new roman", 20, "bold"), fg="white", cursor="hand2", bg="navyblue").place(x=250, y=380, width=180, height=40)
-
-
-
 
         # Clock
         now = datetime.now()
@@ -138,7 +128,7 @@ class Login:
             messagebox.showinfo("Sussessfully","Chào mừng bạn đến với Hệ thống quản lý điểm danh bằng nhận diện khuôn mặt")
         else:
             # messagebox.showerror("Error","Please Check Username or Password !")
-            conn = mysql.connector.connect(user='root', password='2912002',host='localhost',database='face_recognition',port=3306)
+            conn = mysql.connector.connect(user='root', password='',host='localhost',database='face_recognition',port=3306)
             mycursor = conn.cursor()
             mycursor.execute("select * from regteach where email=%s and pwd=%s",(
                 self.txtuser.get(),
@@ -166,7 +156,7 @@ class Login:
         elif(self.var_pwd.get()==""):
             messagebox.showerror("Error","Vui lòng nhập mật khẩu mới!",parent=self.root2)
         else:
-            conn = mysql.connector.connect(user='root', password='2912002',host='localhost',database='face_recognition',port=3306)
+            conn = mysql.connector.connect(user='root', password='',host='localhost',database='face_recognition',port=3306)
             mycursor = conn.cursor()
             query=("select * from regteach where email=%s and ss_que=%s and s_ans=%s")
             value=(self.txtuser.get(),self.var_ssq.get(),self.var_sa.get())
@@ -245,165 +235,135 @@ class Login:
 
 # =====================main program Face deteion system====================
 
-class Face_Recognition_System:
-    def __init__(self,root):
-        self.root=root
-        self.root.state('zoomed')
-        self.root.title("Hệ thống quản lý điểm danh sử dụng nhận dạng khuôn mặt")
+# class Face_Recognition_System:
+#     def __init__(self,root):
+#         self.root=root
+#         self.root.state('zoomed')
+#         self.root.title("Hệ thống quản lý điểm danh sử dụng nhận dạng khuôn mặt")
         
-# This part is image labels setting start 
-        # first header image  
-        img=Image.open(r"Images_GUI\banner2.png")
-        img=img.resize((1280,130),PIL.Image.Resampling.LANCZOS)
-        self.photoimg=ImageTk.PhotoImage(img)
+# # This part is image labels setting start 
+#         # first header image  
+#         img=Image.open(r"Images_GUI\banner3.png")
+#         img=img.resize((1280,130),PIL.Image.Resampling.LANCZOS)
+#         self.photoimg=ImageTk.PhotoImage(img)
 
-        # set image as lable
-        f_lb1 = Label(self.root,image=self.photoimg)
-        f_lb1.place(x=0,y=0,width=1280,height=130)
+#         # set image as lable
+#         f_lb1 = Label(self.root,image=self.photoimg)
+#         f_lb1.place(x=0,y=0,width=1280,height=130)
 
-        # backgorund image 
-        bg1=Image.open(r"Images_GUI\bg4.jpg")
-        bg1=bg1.resize((1280,500),PIL.Image.Resampling.LANCZOS)
-        self.photobg1=ImageTk.PhotoImage(bg1)
+#         # backgorund image 
+#         bg1=Image.open(r"Images_GUI\bg4.jpg")
+#         bg1=bg1.resize((1280,500),PIL.Image.Resampling.LANCZOS)
+#         self.photobg1=ImageTk.PhotoImage(bg1)
 
-        # set image as lable
-        bg_img = Label(self.root,image=self.photobg1)
-        bg_img.place(x=0,y=145,width=1280,height=500)
+#         # set image as lable
+#         bg_img = Label(self.root,image=self.photobg1)
+#         bg_img.place(x=0,y=145,width=1280,height=500)
 
 
-        #title section
-        title_lb1 = Label(bg_img,text="VKU - Hệ thống điểm danh nhận dạng khuôn mặt",font=("verdana",20,"bold"),bg="navyblue",fg="white")
-        title_lb1.place(x=0,y=0,width=1280,height=40)
+#         #title section
+#         title_lb1 = Label(bg_img,text="PTIT - Hệ thống điểm danh nhận dạng khuôn mặt",font=("verdana",20,"bold"),bg="navyblue",fg="white")
+#         title_lb1.place(x=0,y=0,width=1280,height=40)
 
-        # Create buttons below the section 
-        # ------------------------------------------------------------------------------------------------------------------- 
-        # student button 1
-        std_img_btn=Image.open(r"Images_GUI\std1.jpg")
-        std_img_btn=std_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
-        self.std_img1=ImageTk.PhotoImage(std_img_btn)
+#         # Create buttons below the section 
+#         # ------------------------------------------------------------------------------------------------------------------- 
+#         # student button 1
+#         std_img_btn=Image.open(r"Images_GUI\std1.jpg")
+#         std_img_btn=std_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
+#         self.std_img1=ImageTk.PhotoImage(std_img_btn)
 
-        std_b1 = Button(bg_img,command=self.student_pannels,image=self.std_img1,cursor="hand2")
-        std_b1.place(x=220,y=70,width=180,height=180)
+#         std_b1 = Button(bg_img,command=self.student_pannels,image=self.std_img1,cursor="hand2")
+#         std_b1.place(x=220,y=70,width=180,height=180)
 
-        std_b1_1 = Button(bg_img,command=self.student_pannels,text="Sinh Viên",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
-        std_b1_1.place(x=220,y=220,width=180,height=40)
+#         std_b1_1 = Button(bg_img,command=self.student_pannels,text="Sinh Viên",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
+#         std_b1_1.place(x=220,y=220,width=180,height=40)
 
-        # Detect Face  button 2
-        det_img_btn=Image.open(r"Images_GUI\det1.jpg")
-        det_img_btn=det_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
-        self.det_img1=ImageTk.PhotoImage(det_img_btn)
+#         # Detect Face  button 2
+#         det_img_btn=Image.open(r"Images_GUI\det1.jpg")
+#         det_img_btn=det_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
+#         self.det_img1=ImageTk.PhotoImage(det_img_btn)
 
-        det_b1 = Button(bg_img,command=self.face_rec,image=self.det_img1,cursor="hand2",)
-        det_b1.place(x=450,y=70,width=180,height=180)
+#         det_b1 = Button(bg_img,command=self.face_rec,image=self.det_img1,cursor="hand2",)
+#         det_b1.place(x=450,y=70,width=180,height=180)
 
-        det_b1_1 = Button(bg_img,command=self.face_rec,text="Nhận Diện",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
-        det_b1_1.place(x=450,y=220,width=180,height=40)
+#         det_b1_1 = Button(bg_img,command=self.face_rec,text="Nhận Diện",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
+#         det_b1_1.place(x=450,y=220,width=180,height=40)
 
-        # Attendance System  button 3
-        att_img_btn=Image.open(r"Images_GUI\att.jpg")
-        att_img_btn=att_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
-        self.att_img1=ImageTk.PhotoImage(att_img_btn)
+#         # Attendance System  button 3
+#         att_img_btn=Image.open(r"Images_GUI\att.jpg")
+#         att_img_btn=att_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
+#         self.att_img1=ImageTk.PhotoImage(att_img_btn)
 
-        att_b1 = Button(bg_img,command=self.attendance_pannel,image=self.att_img1,cursor="hand2",)
-        att_b1.place(x=680,y=70,width=180,height=180)
+#         att_b1 = Button(bg_img,command=self.attendance_pannel,image=self.att_img1,cursor="hand2",)
+#         att_b1.place(x=680,y=70,width=180,height=180)
 
-        att_b1_1 = Button(bg_img,command=self.attendance_pannel,text="Điểm Danh",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
-        att_b1_1.place(x=680,y=220,width=180,height=40)
+#         att_b1_1 = Button(bg_img,command=self.attendance_pannel,text="Điểm Danh",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
+#         att_b1_1.place(x=680,y=220,width=180,height=40)
 
-        # Help  Support  button 4
-        hlp_img_btn=Image.open(r"Images_GUI\hlp.jpg")
-        hlp_img_btn=hlp_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
-        self.hlp_img1=ImageTk.PhotoImage(hlp_img_btn)
+#         # Top 4 buttons end.......
+#         # ---------------------------------------------------------------------------------------------------------------------------
+#         # Start below buttons.........
+#         # Train   button 5
+#         tra_img_btn=Image.open(r"Images_GUI\tra1.jpg")
+#         tra_img_btn=tra_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
+#         self.tra_img1=ImageTk.PhotoImage(tra_img_btn)
 
-        hlp_b1 = Button(bg_img,command=self.helpSupport,image=self.hlp_img1,cursor="hand2",)
-        hlp_b1.place(x=910,y=70,width=180,height=180)
+#         tra_b1 = Button(bg_img,command=self.train_pannels,image=self.tra_img1,cursor="hand2",)
+#         tra_b1.place(x=220,y=270,width=180,height=180)
 
-        hlp_b1_1 = Button(bg_img,command=self.helpSupport,text="Hỗ Trợ",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
-        hlp_b1_1.place(x=910,y=220,width=180,height=40)
+#         tra_b1_1 = Button(bg_img,command=self.train_pannels,text="Train Data",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
+#         tra_b1_1.place(x=220,y=420,width=180,height=40)
 
-        # Top 4 buttons end.......
-        # ---------------------------------------------------------------------------------------------------------------------------
-        # Start below buttons.........
-        # Train   button 5
-        tra_img_btn=Image.open(r"Images_GUI\tra1.jpg")
-        tra_img_btn=tra_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
-        self.tra_img1=ImageTk.PhotoImage(tra_img_btn)
+#         # Photo   button 6
+#         pho_img_btn=Image.open(r"Images_GUI\dataset.jpg")
+#         pho_img_btn=pho_img_btn.resize((280,120),PIL.Image.Resampling.LANCZOS)
+#         self.pho_img1=ImageTk.PhotoImage(pho_img_btn)
 
-        tra_b1 = Button(bg_img,command=self.train_pannels,image=self.tra_img1,cursor="hand2",)
-        tra_b1.place(x=220,y=270,width=180,height=180)
+#         pho_b1 = Button(bg_img,command=self.open_img,image=self.pho_img1,cursor="hand2",)
+#         pho_b1.place(x=450,y=270,width=180,height=180)
 
-        tra_b1_1 = Button(bg_img,command=self.train_pannels,text="Train Data",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
-        tra_b1_1.place(x=220,y=420,width=180,height=40)
+#         pho_b1_1 = Button(bg_img,command=self.open_img,text="Bộ Dữ liệu",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
+#         pho_b1_1.place(x=450,y=420,width=180,height=40)
 
-        # Photo   button 6
-        pho_img_btn=Image.open(r"Images_GUI\dataset.jpg")
-        pho_img_btn=pho_img_btn.resize((280,120),PIL.Image.Resampling.LANCZOS)
-        self.pho_img1=ImageTk.PhotoImage(pho_img_btn)
+#         # Developers   button 7
 
-        pho_b1 = Button(bg_img,command=self.open_img,image=self.pho_img1,cursor="hand2",)
-        pho_b1.place(x=450,y=270,width=180,height=180)
+#         # exit   button 8
+#         exi_img_btn=Image.open(r"Images_GUI\exi.jpg")
+#         exi_img_btn=exi_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
+#         self.exi_img1=ImageTk.PhotoImage(exi_img_btn)
 
-        pho_b1_1 = Button(bg_img,command=self.open_img,text="Bộ Dữ liệu",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
-        pho_b1_1.place(x=450,y=420,width=180,height=40)
+#         exi_b1 = Button(bg_img,command=self.Close,image=self.exi_img1,cursor="hand2",)
+#         exi_b1.place(x=910,y=270,width=180,height=180)
 
-        # Developers   button 7
-        dev_img_btn=Image.open(r"Images_GUI\dev.jpg")
-        dev_img_btn=dev_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
-        self.dev_img1=ImageTk.PhotoImage(dev_img_btn)
+#         exi_b1_1 = Button(bg_img,command=self.Close,text="Đăng xuất",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
+#         exi_b1_1.place(x=910,y=420,width=180,height=40)
 
-        dev_b1 = Button(bg_img,command=self.developr,image=self.dev_img1,cursor="hand2",)
-        dev_b1.place(x=680,y=270,width=180,height=180)
+# # ==================Funtion for Open Images Folder==================
+#     def open_img(self):
+#         os.startfile("data_img")
+# # ==================Functions Buttons=====================
+#     def student_pannels(self):
+#         self.new_window=Toplevel(self.root)
+#         self.app=Student(self.new_window)
+#         self.new_window.state('zoomed')
 
-        dev_b1_1 = Button(bg_img,command=self.developr,text="Nhà phát triển",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
-        dev_b1_1.place(x=680,y=420,width=180,height=40)
-
-        # exit   button 8
-        exi_img_btn=Image.open(r"Images_GUI\exi.jpg")
-        exi_img_btn=exi_img_btn.resize((180,180),PIL.Image.Resampling.LANCZOS)
-        self.exi_img1=ImageTk.PhotoImage(exi_img_btn)
-
-        exi_b1 = Button(bg_img,command=self.Close,image=self.exi_img1,cursor="hand2",)
-        exi_b1.place(x=910,y=270,width=180,height=180)
-
-        exi_b1_1 = Button(bg_img,command=self.Close,text="Đăng xuất",cursor="hand2",font=("tahoma",15,"bold"),bg="white",fg="navyblue")
-        exi_b1_1.place(x=910,y=420,width=180,height=40)
-
-# ==================Funtion for Open Images Folder==================
-    def open_img(self):
-        os.startfile("data_img")
-# ==================Functions Buttons=====================
-    def student_pannels(self):
-        self.new_window=Toplevel(self.root)
-        self.app=Student(self.new_window)
-        self.new_window.state('zoomed')
-
-    def train_pannels(self):
-        self.new_window=Toplevel(self.root)
-        self.app=Train(self.new_window)
-        self.new_window.state('zoomed')
+#     def train_pannels(self):
+#         self.new_window=Toplevel(self.root)
+#         self.app=Train(self.new_window)
+#         self.new_window.state('zoomed')
         
-    def face_rec(self):
-        self.new_window=Toplevel(self.root)
-        self.app=Face_Recognition(self.new_window)
-        self.new_window.state('zoomed')
+#     def face_rec(self):
+#         self.new_window=Toplevel(self.root)
+#         self.app=Face_Recognition(self.new_window)
+#         self.new_window.state('zoomed')
 
-    def attendance_pannel(self):
-        self.new_window=Toplevel(self.root)
-        self.app=Attendance(self.new_window)
-        self.new_window.state('zoomed')
+#     def attendance_pannel(self):
+#         self.new_window=Toplevel(self.root)
+#         self.app=Attendance(self.new_window)
+#         self.new_window.state('zoomed')
 
-    def developr(self):
-        self.new_window=Toplevel(self.root)
-        self.app=Developer(self.new_window)
-        self.new_window.state('zoomed')
-
-    def helpSupport(self):
-        self.new_window=Toplevel(self.root)
-        self.app=Helpsupport(self.new_window)
-        self.new_window.state('zoomed')
-
-    def Close(self):
-        root.destroy()
+#     def Close(self):
+#         root.destroy()
 
 
 if __name__ == "__main__":
